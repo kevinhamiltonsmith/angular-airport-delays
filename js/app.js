@@ -1,28 +1,16 @@
 var app = angular.module('airportApp', ['firebase']);
 
-app.controller('AirportController', ['$scope', 'AirportDelayService', function($scope, airportDelayService) {
-    var getAirportData = function(airportCode) {
-        $scope.airport = airportDelayService;
-        console.log('airport', $scope.airport)
-    };
-
-    getAirportData('SLC');
-
-    $scope.getAirport = function(airportCode) {
-        // Clear out all old data
-        $scope.airport = null;
-        getAirportData(airportCode);
+app.controller('AirportController', ['$scope', '$firebase', function($scope, $firebase) {
+    $scope.getAirportData = function(airportCode) {
+        var url = 'https://publicdata-airports.firebaseio.com/';
+        $scope.data = $firebase(new Firebase(url + airportCode));
     };
 }]);
 
-app.factory('AirportDelayService', ['$firebase', function($firebase) {
-    var airportsRef = new Firebase("https://publicdata-airports.firebaseio.com/");
-    airportsRef.child("SFO").on("value", delayInfo);
-
-    function delayInfo(snapshot) {
-        var airport = snapshot.val();
-        console.log("Delay: " + airport.delay + " reason: " + airport.status.reason);
-    }
-
-    return $firebase(airportsRef);
-}]);
+app.directive('prevent-default', function() {
+    return function(scope, element, attrs) {
+        $(element).click(function(event) {
+            event.preventDefault();
+        });
+    };
+});

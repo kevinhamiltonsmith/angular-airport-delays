@@ -8,10 +8,27 @@
         <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.min.js"></script>
     </head>
-    <body ng-controller="AirportController">
+    <body ng-controller="AirportController" ng-init="getAirportData('SLC')">
         <div class="app-container">
             <h1>Airport Delays</h1>
-            <p>{{airport.SLC.status}}</p>
+            <h5>What airport would you like delay information from?</h5>
+            <div class="append field">
+                <input class="normal text input" type="text" placeholder="Airport Code e.g. SLC" ng-model="airportCode" />
+                <div class="medium primary btn" ng-click="getAirportData(airportCode)" prevent-default>
+                    <a href="#">Submit</a>
+                </div>
+            </div>
+            <div class="airport-data-wrap">
+                <p>City: {{data.city}}</p>
+                <p>Current Delay: {{data.delay}}</p>
+                <h3 ng-show="!data.delay">There is no delay currently at {{data.$id}}!</h3>
+                <div ng-show="data.delay">
+                    <h3>There is a delay at {{data.$id}}</h3>
+                    <h5>Average Delay: {{data.status.avgDelay}}</h5>
+                    <h5>Reason: {{data.status.reason}}</h5>
+                </div>
+                <!-- <p>Data: {{data}}</p> -->
+            </div>
         </div>
         <script src="vendor/jquery.min.js"></script>
         <script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
