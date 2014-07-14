@@ -18,7 +18,7 @@
             <div class="airport-data-wrap">
                 <div class="row" ng-repeat="singleAirport in airports" ng-if="$index % 3 == 0">
                     <div class="four columns single-airport-wrap" ng-class="(airport.delay) ? 'delay' : 'no-delay'" ng-repeat="airport in airports.slice($index, $index + 3) | filter:filterText">
-                        <p>{{airport.city}}</p>
+                        <p>{{airport.city}} - {{airport.IATA}}</p>
                         <p>Current Delay: {{airport.delay}}</p>
                     </div>
                 </div>

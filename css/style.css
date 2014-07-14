@@ -7,9 +7,10 @@
     padding: 20px;
 }
 .airport-data-wrap .row {
-    margin: 30px 0;
+    margin: 0;
 }
 .single-airport-wrap {
+    margin-top: 30px;
     padding: 10px;
 }
 .single-airport-wrap.no-delay {
