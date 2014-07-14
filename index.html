@@ -8,26 +8,20 @@
         <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.min.js"></script>
     </head>
-    <body ng-controller="AirportController" ng-init="getAirportData('SLC')">
+    <body ng-controller="AirportController" ng-init="getAllAirports()">
         <div class="app-container">
             <h1>Airport Delays</h1>
-            <h5>What airport would you like delay information from?</h5>
-            <div class="append field">
-                <input class="normal text input" type="text" placeholder="Airport Code e.g. SLC" ng-model="airportCode" />
-                <div class="medium primary btn" ng-click="getAirportData(airportCode)" prevent-default>
-                    <a href="#">Submit</a>
-                </div>
+            <h5>Filter airports:</h5>
+            <div class="field">
+                <input class="normal text input" type="search" placeholder="city or airport code" ng-model="filterText" />
             </div>
             <div class="airport-data-wrap">
-                <p>City: {{data.city}}</p>
-                <p>Current Delay: {{data.delay}}</p>
-                <h3 ng-show="!data.delay">There is no delay currently at {{data.$id}}!</h3>
-                <div ng-show="data.delay">
-                    <h3>There is a delay at {{data.$id}}</h3>
-                    <h5>Average Delay: {{data.status.avgDelay}}</h5>
-                    <h5>Reason: {{data.status.reason}}</h5>
+                <div class="row" ng-repeat="singleAirport in airports" ng-if="$index % 3 == 0">
+                    <div class="four columns single-airport-wrap" ng-class="(airport.delay) ? 'delay' : 'no-delay'" ng-repeat="airport in airports.slice($index, $index + 3) | filter:filterText">
+                        <p>{{airport.city}}</p>
+                        <p>Current Delay: {{airport.delay}}</p>
+                    </div>
                 </div>
-                <!-- <p>Data: {{data}}</p> -->
             </div>
         </div>
         <script src="vendor/jquery.min.js"></script>
