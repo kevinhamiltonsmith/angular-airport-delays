@@ -3,15 +3,43 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.app-container {
-    padding: 20px;
+h3 {
+    padding: 25px 0 5px;
 }
+
 .airport-data-wrap .row {
     margin: 0;
 }
+.app-container {
+    padding: 20px;
+}
+.delayed-warn {
+    background: red;
+    color: white;
+    font-weight: bold;
+    left: 0;
+    margin: 0;
+    padding: 0 10px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+.expanded-wrap {
+    display: none;
+}
+.expanded-wrap.expanded {
+    display: block;
+}
+.more-info {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+}
 .single-airport-wrap {
     margin-top: 30px;
+    min-height: 135px;
     padding: 10px;
+    position: relative;
 }
 .single-airport-wrap.no-delay {
     border: 3px solid green;

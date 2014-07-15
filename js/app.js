@@ -22,4 +22,16 @@ app.controller('AirportController', ['$scope', '$firebase', function($scope, $fi
             });
         });
     };
+
+    // More info click handler
+    $scope.selected = null;
+    $scope.moreInfo = function(airportCode, e) {
+        e.preventDefault();
+        var $expandedWrap = $(e.target).closest('.single-airport-wrap').find('.expanded-wrap');
+        if ($expandedWrap.hasClass('expanded')) {
+            $scope.selected = null;
+        } else {
+            $scope.selected = airportCode;
+        }
+    };
 }]);

@@ -13,13 +13,28 @@
             <h1>Airport Delays</h1>
             <h5>Filter airports:</h5>
             <div class="field">
-                <input class="normal text input" type="search" placeholder="city or airport code" ng-model="filterText" />
+                <input class="normal text input" type="search" placeholder="city, state, or airport code" ng-model="filterText" />
             </div>
             <div class="airport-data-wrap">
                 <div class="row" ng-repeat="singleAirport in airports" ng-if="$index % 3 == 0">
-                    <div class="four columns single-airport-wrap" ng-class="(airport.delay) ? 'delay' : 'no-delay'" ng-repeat="airport in airports.slice($index, $index + 3) | filter:filterText">
-                        <p>{{airport.city}} - {{airport.IATA}}</p>
-                        <p>Current Delay: {{airport.delay}}</p>
+                    <div class="four columns single-airport-wrap animate"
+                         ng-class="(airport.delay) ? 'delay' : 'no-delay'"
+                         ng-repeat="airport in airports.slice($index, $index + 3) | filter:filterText">
+                        <p ng-show="airport.delay" class="ng-hide delayed-warn">DELAYED</p>
+                        <h3>{{airport.IATA}}</h3>
+                        <h5>{{airport.city}}</h5>
+                        <div class="small info btn more-info" ng-click="moreInfo(airport.IATA, $event)">
+                            <a href="#" ng-show="airport.IATA != selected">More Info</a>
+                            <a href="#" ng-show="airport.IATA == selected">Less Info</a>
+                        </div>
+                        <div class="expanded-wrap" ng-class="{expanded: airport.IATA == selected}">
+                            <p>Reason: {{airport.status.reason}}</p>
+                            <p>Type: {{airport.status.type}}</p>
+                            <p>End Time: {{airport.status.endTime}}</p>
+                            <p>Weather: {{airport.weather.weather}}</p>
+                            <p>Temp: {{airport.weather.temp}}</p>
+                            <p>Visibility: {{airport.weather.visibility}} miles</p>
+                        </div>
                     </div>
                 </div>
             </div>
